@@ -24,7 +24,7 @@ AFRAME.registerComponent('ui', {
 
     // The cursor is centered in 0,0 to allow scale it easily
     // This is the offset to put it back in its original position on the slider
-    this.cursorOffset = new THREE.Vector3(0.06409, 0.01419, -0.10242);
+    this.cursorOffset = new THREE.Vector3(0.06409, 0.015, -0.10242);
 
     // UI entity setup
     uiEl.setAttribute('material', {
@@ -562,10 +562,8 @@ AFRAME.registerComponent('ui', {
   },
 
   updateSizeSlider: function (size) {
-    var slider = this.objects.sizeSlider;
-    var sliderBoundingBox = slider.geometry.boundingBox;
     var cursor = this.objects.sizeCursor;
-    var sliderWidth = sliderBoundingBox.max.x - sliderBoundingBox.min.x;
+    var sliderWidth = Math.abs(this.cursorOffset.x) * 2;
     var normalizedSize = size / AFRAME.components.brush.schema.size.max;
     var positionX = normalizedSize * sliderWidth;
     cursor.position.setX(positionX - this.cursorOffset.x);
